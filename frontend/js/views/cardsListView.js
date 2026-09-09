@@ -12,9 +12,12 @@ import { navigate } from '../router.js';
 
 async function loadEditionNameMap() {
   const map = new Map();
-  const results = await Promise.all(CARD_GAMES.map((g) => editionsApi.byGame(g.id)));
-  for (const { editions } of results) {
-    for (const edition of editions) map.set(edition.id, edition.name);
+  // allSettled: uma falha isolada ao buscar edições de UM jogo não pode
+  // impedir a listagem de exibir as cartas dos outros jogos.
+  const results = await Promise.allSettled(CARD_GAMES.map((g) => editionsApi.byGame(g.id)));
+  for (const result of results) {
+    if (result.status !== 'fulfilled') continue;
+    for (const edition of result.value.editions) map.set(edition.id, edition.name);
   }
   return map;
 }

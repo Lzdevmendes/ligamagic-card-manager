@@ -10,24 +10,33 @@ export function createCardTable(cards, editionNameById, { onEdit, onDelete }) {
     ]);
   }
 
-  const rows = cards.map((card) =>
-    el('tr', {}, [
-      el('td', { class: 'cell-thumb' }, card.image_url
-        ? el('img', { src: card.image_url, alt: card.name_en, class: 'card-thumb' })
-        : el('span', { class: 'card-thumb card-thumb--placeholder' }, '🂠')),
-      el('td', {}, [
-        el('div', { class: 'cell-title' }, card.name_en),
-        card.name_pt ? el('div', { class: 'cell-subtitle' }, card.name_pt) : null,
-      ]),
-      el('td', {}, cardGameName(card.card_game)),
-      el('td', {}, editionNameById.get(card.edition_id) ?? card.edition_id),
-      el('td', {}, el('span', { class: `badge badge--${card.rarity}` }, RARITY_LABELS[card.rarity] ?? card.rarity)),
-      el('td', { class: 'cell-actions' }, [
-        el('button', { type: 'button', class: 'button button--small', onClick: () => onEdit(card) }, 'Editar'),
-        el('button', { type: 'button', class: 'button button--small button--danger', onClick: () => onDelete(card) }, 'Excluir'),
-      ]),
-    ]),
-  );
+  // Uma carta com dado inesperado não pode derrubar a listagem inteira: se
+  // uma linha falhar ao montar, as demais continuam sendo exibidas.
+  const rows = cards
+    .map((card) => {
+      try {
+        return el('tr', {}, [
+          el('td', { class: 'cell-thumb' }, card.image_url
+            ? el('img', { src: card.image_url, alt: card.name_en, class: 'card-thumb' })
+            : el('span', { class: 'card-thumb card-thumb--placeholder' }, '🂠')),
+          el('td', {}, [
+            el('div', { class: 'cell-title' }, card.name_en),
+            card.name_pt ? el('div', { class: 'cell-subtitle' }, card.name_pt) : null,
+          ]),
+          el('td', {}, cardGameName(card.card_game)),
+          el('td', {}, editionNameById.get(card.edition_id) ?? card.edition_id),
+          el('td', {}, el('span', { class: `badge badge--${card.rarity}` }, RARITY_LABELS[card.rarity] ?? card.rarity)),
+          el('td', { class: 'cell-actions' }, [
+            el('button', { type: 'button', class: 'button button--small', onClick: () => onEdit(card) }, 'Editar'),
+            el('button', { type: 'button', class: 'button button--small button--danger', onClick: () => onDelete(card) }, 'Excluir'),
+          ]),
+        ]);
+      } catch (err) {
+        console.error('Falha ao renderizar a carta', card, err);
+        return null;
+      }
+    })
+    .filter((row) => row !== null);
 
   return el('table', { class: 'card-table' }, [
     el('thead', {}, el('tr', {}, [
