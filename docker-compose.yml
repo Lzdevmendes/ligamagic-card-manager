@@ -13,7 +13,7 @@ services:
       context: .
       dockerfile: docker/php/Dockerfile
     ports:
-      - "${API_PORT:-8081}:80"
+      - "${API_PORT:-8091}:80"
     volumes:
       - ./backend:/var/www/html
     environment:
@@ -49,7 +49,7 @@ services:
   adminer:
     image: adminer:latest
     ports:
-      - "${ADMINER_PORT:-8082}:8080"
+      - "${ADMINER_PORT:-8092}:8080"
     depends_on:
       - db
 
