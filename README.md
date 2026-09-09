@@ -8,12 +8,12 @@ HTML5/CSS3/JavaScript vanilla (sem framework/biblioteca)**.
 
 ## Stack
 
-| Camada | Tecnologia |
-|---|---|
-| Backend | PHP 8.3 puro, sem Composer/framework — Clean Architecture (Domain → Application → Infrastructure/Interface) |
-| Banco de dados | MySQL 8.0 |
-| Frontend | HTML5 + CSS3 + JavaScript vanilla (ES Modules nativos), sem build step |
-| Ambiente | Docker Compose (nginx + PHP-Apache + MySQL + Adminer) |
+| Camada         | Tecnologia                                                                                                  |
+| -------------- | ----------------------------------------------------------------------------------------------------------- |
+| Backend        | PHP 8.3 puro, sem Composer/framework — Clean Architecture (Domain → Application → Infrastructure/Interface) |
+| Banco de dados | MySQL 8.0                                                                                                   |
+| Frontend       | HTML5 + CSS3 + JavaScript vanilla (ES Modules nativos), sem build step                                      |
+| Ambiente       | Docker Compose (nginx + PHP-Apache + MySQL + Adminer)                                                       |
 
 ## Como rodar o projeto
 
@@ -28,11 +28,11 @@ docker compose up -d --build
 
 Isso sobe 4 serviços:
 
-| Serviço | URL | Descrição |
-|---|---|---|
-| `web` | http://localhost:8080 | Frontend estático (nginx) |
-| `api` | http://localhost:8091 | API REST (PHP + Apache) |
-| `db` | localhost:3306 | MySQL, já com schema e massa de dados inicial |
+| Serviço   | URL                   | Descrição                                              |
+| --------- | --------------------- | ------------------------------------------------------ |
+| `web`     | http://localhost:8080 | Frontend estático (nginx)                              |
+| `api`     | http://localhost:8091 | API REST (PHP + Apache)                                |
+| `db`      | localhost:3306        | MySQL, já com schema e massa de dados inicial          |
 | `adminer` | http://localhost:8092 | Inspeção do banco (servidor `db`, usuário `ligamagic`) |
 
 O schema (`backend/database/schema.sql`) e o seed (`backend/database/seed.sql`) são
@@ -55,17 +55,17 @@ neste desafio.
 
 Todos os endpoints (exceto login) exigem sessão autenticada (cookie `PHPSESSID`).
 
-| Método | Rota | Descrição |
-|---|---|---|
-| POST | `/api/auth/login` | Autentica e-mail/senha, abre sessão |
-| POST | `/api/auth/logout` | Encerra a sessão |
-| GET | `/api/auth/me` | Usuário autenticado atual |
-| GET | `/api/cards` | Lista todas as cartas |
-| GET | `/api/cards/{id}` | Detalhe de uma carta |
-| POST | `/api/cards` | Cria uma carta |
-| PUT | `/api/cards/{id}` | Atualiza uma carta |
-| DELETE | `/api/cards/{id}` | Exclui uma carta |
-| GET | `/api/editions?game={magic\|pokemon\|yugioh}` | Edições de um Card Game |
+| Método | Rota                                          | Descrição                           |
+| ------ | --------------------------------------------- | ----------------------------------- |
+| POST   | `/api/auth/login`                             | Autentica e-mail/senha, abre sessão |
+| POST   | `/api/auth/logout`                            | Encerra a sessão                    |
+| GET    | `/api/auth/me`                                | Usuário autenticado atual           |
+| GET    | `/api/cards`                                  | Lista todas as cartas               |
+| GET    | `/api/cards/{id}`                             | Detalhe de uma carta                |
+| POST   | `/api/cards`                                  | Cria uma carta                      |
+| PUT    | `/api/cards/{id}`                             | Atualiza uma carta                  |
+| DELETE | `/api/cards/{id}`                             | Exclui uma carta                    |
+| GET    | `/api/editions?game={magic\|pokemon\|yugioh}` | Edições de um Card Game             |
 
 Erros seguem o formato `{"error":{"message":"...","fields":{...}}}`, com status
 401 (não autenticado), 404 (não encontrado), 422 (validação) ou 500.
@@ -85,7 +85,7 @@ que já foi preenchido no restante do formulário.
 **2. Confirmação de exclusão via modal próprio da aplicação, citando o nome da
 carta, em vez do `confirm()` nativo do navegador.** O `confirm()` do browser é
 genérico ("A página diz: tem certeza?"), não segue o visual do restante do
-portal e não deixa claro *qual* carta está prestes a ser apagada quando a
+portal e não deixa claro _qual_ carta está prestes a ser apagada quando a
 lista tem várias linhas parecidas. Um modal customizado que repete o nome da
 carta ("Tem certeza que deseja excluir 'Charizard'?") reduz o risco de exclusão
 acidental por parte de um usuário menos atento — o custo de errar numa
@@ -98,7 +98,7 @@ compensa a complexidade extra de implementar o modal na mão.
   para exercitar CORS explícito e cookie de sessão `HttpOnly`/`SameSite=Lax`
   entre origens — decisão deliberada para demonstrar esse conhecimento, não uma
   limitação. Como são o mesmo host (`localhost`), o cookie de sessão é
-  considerado *same-site* e trafega normalmente sem precisar de HTTPS local.
+  considerado _same-site_ e trafega normalmente sem precisar de HTTPS local.
 - **Sem Composer nem build step no frontend**: autoload manual via
   `spl_autoload_register` no backend; frontend consumido direto via ES Modules
   nativos (`<script type="module">`), sem bundler.
