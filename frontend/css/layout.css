@@ -3,7 +3,7 @@
 }
 
 .page {
-  max-width: 1040px;
+  max-width: 1180px;
   margin: 0 auto;
   padding: var(--space-6) var(--space-5) var(--space-8);
 }

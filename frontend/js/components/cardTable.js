@@ -23,8 +23,8 @@ export function createCardTable(cards, editionNameById, { onEdit, onDelete }) {
             el('div', { class: 'cell-title' }, card.name_en),
             card.name_pt ? el('div', { class: 'cell-subtitle' }, card.name_pt) : null,
           ]),
-          el('td', {}, cardGameName(card.card_game)),
-          el('td', {}, editionNameById.get(card.edition_id) ?? card.edition_id),
+          el('td', { class: 'cell-game' }, cardGameName(card.card_game)),
+          el('td', { class: 'cell-edition' }, editionNameById.get(card.edition_id) ?? card.edition_id),
           el('td', {}, el('span', { class: `badge badge--${card.rarity}` }, RARITY_LABELS[card.rarity] ?? card.rarity)),
           el('td', { class: 'cell-actions' }, [
             el('button', { type: 'button', class: 'button button--small', onClick: () => onEdit(card) }, 'Editar'),
@@ -39,6 +39,14 @@ export function createCardTable(cards, editionNameById, { onEdit, onDelete }) {
     .filter((row) => row !== null);
 
   return el('table', { class: 'card-table' }, [
+    el('colgroup', {}, [
+      el('col', { class: 'col-thumb' }),
+      el('col', { class: 'col-name' }),
+      el('col', { class: 'col-game' }),
+      el('col', { class: 'col-edition' }),
+      el('col', { class: 'col-rarity' }),
+      el('col', { class: 'col-actions' }),
+    ]),
     el('thead', {}, el('tr', {}, [
       el('th', {}, ''),
       el('th', {}, 'Nome'),

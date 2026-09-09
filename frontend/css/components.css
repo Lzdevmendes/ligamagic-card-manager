@@ -134,9 +134,15 @@
   margin-top: var(--space-5);
 }
 
-/* Tabela */
+/* Tabela — table-layout: fixed com largura fixa por coluna (abaixo) garante
+   que a tabela NUNCA fique mais larga que o previsto, então a coluna de
+   Ações (a última, a mais à direita) nunca é empurrada pra fora da área
+   visível. Texto que não cabe trunca com reticências em vez de esticar
+   a coluna ou quebrar linha no meio — nunca os dois problemas ao mesmo
+   tempo (linhas com altura diferente / botões cortados na borda). */
 .card-table {
   width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
 }
 
@@ -153,15 +159,26 @@
 .card-table td {
   padding: var(--space-3) var(--space-4);
   border-bottom: 1px solid var(--border);
-  vertical-align: middle;
+  /* topo, não middle: numa linha mais alta (nome com tradução em duas
+     linhas), vertical-align:middle centralizava os botões/badge com um
+     vão em branco desproporcional acima e abaixo. Alinhados ao topo,
+     eles ficam sempre ancorados junto à primeira linha do nome. */
+  vertical-align: top;
 }
 
 .card-table tr:last-child td {
   border-bottom: none;
 }
 
+.col-thumb { width: 64px; }
+.col-name { width: 240px; }
+.col-game { width: 170px; }
+.col-edition { width: 220px; }
+.col-rarity { width: 110px; }
+.col-actions { width: 170px; }
+
 .cell-thumb {
-  width: 48px;
+  width: 64px;
 }
 
 .card-thumb {
@@ -179,6 +196,15 @@
   background: var(--surface-muted);
   color: var(--ink-300);
   font-size: 1.2rem;
+}
+
+.cell-title,
+.cell-subtitle,
+.cell-game,
+.cell-edition {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .cell-title {
