@@ -36,7 +36,7 @@ addRoute('/', () => navigate(session.isAuthenticated() ? '/cards' : '/login'));
 
 setNotFound(() => mount(root, el('div', { class: 'page' }, el('p', {}, 'Página não encontrada.'))));
 
-async function bootstrap() {
+async function init() {
   mount(root, el('p', { class: 'loading loading--full' }, 'Carregando…'));
 
   try {
@@ -49,4 +49,4 @@ async function bootstrap() {
   start();
 }
 
-bootstrap();
+init();
