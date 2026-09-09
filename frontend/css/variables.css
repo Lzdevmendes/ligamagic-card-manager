@@ -1,0 +1,51 @@
+:root {
+  /* paleta: azul-tinta (marca) + dourado/âmbar (destaque, remete a "carta rara") */
+  --ink-950: #0b1220;
+  --ink-900: #101a2e;
+  --ink-800: #16233d;
+  --ink-700: #21324f;
+  --ink-500: #4b5d81;
+  --ink-300: #93a2c2;
+  --ink-100: #dbe1ee;
+  --ink-50: #f3f5fa;
+
+  --gold-600: #a9761c;
+  --gold-500: #c8932c;
+  --gold-400: #dcab48;
+  --gold-100: #f6e9d1;
+
+  --danger-500: #c8442c;
+  --danger-100: #fbe4de;
+  --success-500: #1f8a5f;
+  --success-100: #dcf3e8;
+
+  --surface: #ffffff;
+  --surface-muted: var(--ink-50);
+  --border: var(--ink-100);
+  --text: var(--ink-900);
+  --text-muted: var(--ink-500);
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  --shadow-sm: 0 1px 2px rgba(11, 18, 32, 0.06);
+  --shadow-md: 0 8px 24px rgba(11, 18, 32, 0.12);
+  --shadow-lg: 0 16px 48px rgba(11, 18, 32, 0.22);
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-8: 48px;
+
+  --font-sans: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--surface-muted);
+  color: var(--text);
+}
